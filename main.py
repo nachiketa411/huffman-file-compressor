@@ -1,36 +1,23 @@
-from huffman.HuffmanTree import HuffmanTree
-from utils.utils import (
-    build_frequency_table,
-    read_file,
-    encode_packed,
-    decode_packed
+from pathlib import Path
+
+from huffman.codec import (
+    build_tree_and_codes,
+    decode,
+    encode,
 )
 
 
 def main() -> None:
-    # 1. Read original file
-    data = read_file("./assets/My Washington Driving License  (1).pdf")
+    input_path = Path("./assets/My Washington Driving License  (1).pdf")
+    data = input_path.read_bytes()
 
-    # 2. Build Frequency Table
-    frequencies = build_frequency_table(data)
+    tree, codes = build_tree_and_codes(data)
 
-    # 3. Build Huffman Tree
-    tree = HuffmanTree(frequencies)
-
-    # 4. Generate Huffman Code
-    codes = tree.build_code()
-
-    # assert tree.root is not None
-    # assert tree.root.frequency == len(data)
-
-    # 5. Pack huffman bits into actual bytes
-    packed_data, padding_bits = encode_packed(
+    packed_data, padding_bits = encode(
         data,
         codes,
     )
-
-    # 6. Decode directly from packed bytes
-    decoded_data = decode_packed(
+    decoded_data = decode(
         packed_data,
         tree.root,
         padding_bits,

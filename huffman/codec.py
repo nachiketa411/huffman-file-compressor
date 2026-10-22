@@ -9,6 +9,7 @@ from huffman.tree import HuffmanTree
 def build_frequency_table(data: bytes) -> dict[int, int]:
     return dict(Counter(data))
 
+
 def build_tree_and_codes(
         data: bytes
 ) -> tuple[HuffmanTree, dict[int, str]]:
@@ -18,6 +19,7 @@ def build_tree_and_codes(
     codes = tree.generate_codes()
 
     return tree, codes
+
 
 def encode(
         data: bytes,
@@ -31,6 +33,7 @@ def encode(
             codes[byte_value]
         )
     return writer.finish()
+
 
 def decode(
         packed_data: bytes,
@@ -57,6 +60,7 @@ def decode(
         root
     )
 
+
 def _write_code(
         writer: BitWriter,
         code: str
@@ -64,6 +68,7 @@ def _write_code(
     for bit_character in code:
         bit = 1 if bit_character == "1" else 0
         writer.write_bit(bit)
+
 
 def _decode_single_symbol(
         packed_data: bytes,
@@ -82,6 +87,7 @@ def _decode_single_symbol(
     return bytes(
         [byte_value] * symbol_count
     )
+
 
 def _decode_tree(
         reader: BitReader,
@@ -109,6 +115,7 @@ def _decode_tree(
     )
     return bytes(decoded_data)
 
+
 def _move_to_next_node(
         current: HuffmanNode,
         bit: int
@@ -126,6 +133,7 @@ def _move_to_next_node(
 
     return next_node
 
+
 def _append_leaf_value(
         decoded: bytearray,
         node: HuffmanNode
@@ -138,6 +146,7 @@ def _append_leaf_value(
         )
 
     decoded.append(byte_value)
+
 
 def _validate_decode_finished(
         current: HuffmanNode,

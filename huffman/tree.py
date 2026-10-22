@@ -10,7 +10,7 @@ class HuffmanTree:
         self.root: Optional["HuffmanNode"] = None
         self.build_tree()
 
-    def build_tree(self):
+    def build_tree(self) -> None:
         min_heap: list[HuffmanNode] = []
         for byte_value, frequency in self.frequencies.items():
             node = HuffmanNode.leaf(
@@ -34,7 +34,6 @@ class HuffmanTree:
             heapq.heappush(min_heap, parent)
 
         self.root = min_heap[0]
-        return
 
     def generate_codes(self) -> dict[int, str]:
         codes: dict[int, str] = {}

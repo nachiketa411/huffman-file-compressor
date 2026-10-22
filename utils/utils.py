@@ -8,7 +8,7 @@ def print_frequency_table(frequency_table: dict[int, int]) -> None:
         printable = chr(byte_value) if 32 <= byte_value <= 126 else "."
         print(
             f"byte={byte_value:3} "
-            f"char={printable!r}"
+            f"char={printable!r} "
             f"frequency={frequency}"
         )
 
